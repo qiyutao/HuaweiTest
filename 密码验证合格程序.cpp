@@ -94,3 +94,87 @@ int main()
 	
 	return 0;
 }
+
+
+//----------------------------------------------------------
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+bool isDiffer(char* str)
+{
+	int counta = 0;
+	int countA = 0;
+	int countN = 0;
+	int countOther = 0;
+	int size = strlen(str);
+	for(int i=0;i<size;i++)
+	{
+		if(str[i]>='a'&&str[i]<='z')
+			counta++;
+		else if(str[i]>='A'&&str[i]<='Z')
+			countA++;
+		else if(str[i]>='0'&&str[i]<='9')
+			countN++;
+		else
+			countOther++;
+	}
+	if(counta!=0&&countA!=0&&countN!=0&&countOther!=0||
+	counta==0&&countA!=0&&countN!=0&&countOther!=0||
+	counta!=0&&countA==0&&countN!=0&&countOther!=0||
+	counta!=0&&countA!=0&&countN==0&&countOther!=0||
+	counta!=0&&countA!=0&&countN!=0&&countOther==0)
+		return true;
+	return false;
+}
+
+bool isSub(char *str)
+{
+	int size = strlen(str);
+	for(int i=0;i<size-3;i++)
+	{
+		for(int j = i+1;j<size;j++)
+		{
+			if(str[i]==str[j])
+			{
+				if(str[i+1]==str[j+1])
+				{
+					if(str[i+2]==str[j+2])
+					{
+						return false;
+					}	
+				}
+			}
+		}
+	}
+	
+	return true;
+}
+
+int main()
+{
+	char password[80];
+	while(cin>>password)
+	{
+		if(strlen(password)<9)
+		{
+			cout<<"NG"<<endl;
+		}
+		else
+		{
+			if(!isDiffer(password))
+				cout<<"NG"<<endl;
+			else
+			{
+				if(isSub(password))
+					cout<<"OK"<<endl;
+				else	
+					cout<<"NG"<<endl;
+			}
+		}
+	}
+	
+	return 0;
+}
+
